@@ -12,7 +12,7 @@ defmodule Kadena.Types.CapTest do
       decimal = Decimal.new("0.01")
 
       %Cap{
-        name: "gas",
+        name: "gass",
         args: %PactValuesList{
           pact_values: [%PactValue{literal: "COIN.gas"}, %PactValue{literal: ^decimal}]
         }
