@@ -26,11 +26,11 @@ defmodule Kadena.Chainweb.Client.Default do
   }
 
   @impl true
-  def request(method, path, headers \\ [], body \\ "", opts \\ []) do
+  def request(method, url, headers \\ [], body \\ "", opts \\ []) do
     options = http_options(opts)
 
     method
-    |> http_client().request(path, headers, body, options)
+    |> http_client().request(url, headers, body, options)
     |> handle_response()
   end
 
