@@ -61,7 +61,7 @@ defmodule Kadena.Types.CommandResultTest do
 
       meta_data = ChainwebResponseMetaData.new(meta_data_value)
 
-      result_value = [status: :success, result: 3]
+      result_value = [status: :success, data: 3]
       result = PactResult.new(result_value)
       pact_events_list = PactEventsList.new([])
 

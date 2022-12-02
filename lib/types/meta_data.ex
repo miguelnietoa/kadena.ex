@@ -4,6 +4,7 @@ defmodule Kadena.Types.MetaData do
   """
 
   alias Kadena.Types.ChainID
+  alias Kadena.Chainweb.Mapping
 
   @behaviour Kadena.Types.Spec
 
@@ -52,6 +53,12 @@ defmodule Kadena.Types.MetaData do
         chain_id: chain_id
       }
     end
+  end
+
+  def new(attrs) when is_map(attrs) do
+    %__MODULE__{}
+    |> Mapping.build(attrs)
+    |> new()
   end
 
   def new(_args), do: {:error, [args: :not_a_list]}

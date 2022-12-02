@@ -4,11 +4,12 @@ defmodule Kadena.Types.ChainwebResponseMetaData do
   """
 
   alias Kadena.Types.{MetaData, OptionalMetaData}
+  alias Kadena.Chainweb.Mapping
 
   @behaviour Kadena.Types.Spec
 
   @type hash :: String.t()
-  @type block_hash :: hash()
+  @type block_hash :: hash() | nil
   @type block_number :: number()
   @type block_time :: block_number()
   @type block_height :: block_number()
@@ -27,8 +28,12 @@ defmodule Kadena.Types.ChainwebResponseMetaData do
 
   defstruct [:block_hash, :block_time, :block_height, :prev_block_hash, :public_meta]
 
+  @mapping [
+    public_meta: {:struct, OptionalMetaData}
+  ]
+
   @impl true
-  def new(args) do
+  def new(args) when is_list(args) do
     block_hash = Keyword.get(args, :block_hash)
     block_time = Keyword.get(args, :block_time)
     block_height = Keyword.get(args, :block_height)
@@ -50,7 +55,15 @@ defmodule Kadena.Types.ChainwebResponseMetaData do
     end
   end
 
+  def new(attrs) do
+    %__MODULE__{}
+    |> Mapping.build(attrs)
+    |> Mapping.parse(@mapping)
+    |> new()
+  end
+
   @spec validate_hash(field :: atom(), value :: hash()) :: validation()
+  defp validate_hash(_field, nil), do: {:ok, nil}
   defp validate_hash(_field, value) when is_binary(value), do: {:ok, value}
   defp validate_hash(field, _value), do: {:error, [{field, :invalid}]}
 

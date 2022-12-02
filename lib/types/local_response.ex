@@ -12,6 +12,8 @@ defmodule Kadena.Types.LocalResponse do
     PactResult
   }
 
+  alias Kadena.Chainweb.Mapping
+
   @behaviour Kadena.Types.Spec
 
   @type req_key :: Base64Url.t()
@@ -19,7 +21,7 @@ defmodule Kadena.Types.LocalResponse do
   @type result :: PactResult.t()
   @type gas :: number()
   @type logs :: String.t() | nil
-  @type continuation :: PactExec.t()
+  @type continuation :: PactExec.t() | nil
   @type meta_data :: ChainwebResponseMetaData.t() | nil
   @type events :: OptionalPactEventsList.t()
   @type command_result :: CommandResult.t()
@@ -38,11 +40,25 @@ defmodule Kadena.Types.LocalResponse do
 
   defstruct [:req_key, :tx_id, :result, :gas, :logs, :continuation, :meta_data, :events]
 
+  @mapping [
+    result: {:struct, PactResult},
+    continuation: {:struct, PactExec},
+    meta_data: {:struct, ChainwebResponseMetaData},
+  ]
+
   @impl true
-  def new(args) do
+  def new(args) when is_list(args) do
     args
     |> CommandResult.new()
     |> build_local_request_body()
+  end
+
+  def new(attrs) when is_map(attrs) do
+    %__MODULE__{}
+    |> Mapping.build(attrs)
+    |> Mapping.parse(@mapping)
+    |> IO.inspect()
+    |> new()
   end
 
   @spec build_local_request_body(command_result :: command_result() | errors()) :: t() | errors()

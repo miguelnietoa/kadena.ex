@@ -20,7 +20,7 @@ defmodule Kadena.Types.CommandResult do
   @type result :: PactResult.t()
   @type gas :: number()
   @type logs :: String.t() | nil
-  @type continuation :: PactExec.t()
+  @type continuation :: PactExec.t() | nil
   @type meta_data :: ChainwebResponseMetaData.t() | nil
   @type events :: OptionalPactEventsList.t()
   @type events_arg :: PactEventsList.t() | list() | nil
@@ -112,6 +112,7 @@ defmodule Kadena.Types.CommandResult do
   defp validate_logs(_logs), do: {:error, [logs: :invalid]}
 
   @spec validate_continuation(continuation :: continuation()) :: validation()
+  defp validate_continuation(nil), do: {:ok, nil}
   defp validate_continuation(%PactExec{} = continuation), do: {:ok, continuation}
 
   defp validate_continuation(continuation) when is_list(continuation) do
