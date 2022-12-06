@@ -3,30 +3,34 @@ defmodule Kadena.Types.PactEventModule do
   `PactEventModule` struct definition.
   """
 
+  alias Kadena.Chainweb.Mapping
+
   @behaviour Kadena.Types.Spec
 
   @type name :: String.t()
-  @type name_space :: String.t() | nil
-  @type value :: name() | name_space()
+  @type namespace :: String.t() | nil
+  @type value :: name() | namespace()
   @type validation :: {:ok, value()} | {:error, Keyword.t()}
 
-  @type t :: %__MODULE__{name: name(), name_space: name_space()}
+  @type t :: %__MODULE__{name: name(), namespace: namespace()}
 
-  defstruct [:name, :name_space]
+  defstruct [:name, :namespace]
 
   @impl true
-  def new(args) do
+  def new(args) when is_list(args) do
     name = Keyword.get(args, :name)
-    name_space = Keyword.get(args, :name_space)
+    namespace = Keyword.get(args, :namespace)
 
     with {:ok, name} <- validate_string(:name, name),
-         {:ok, name_space} <- validate_string(:name_space, name_space) do
-      %__MODULE__{name: name, name_space: name_space}
+         {:ok, namespace} <- validate_string(:namespace, namespace) do
+      %__MODULE__{name: name, namespace: namespace}
     end
   end
 
+  def new(attrs) when is_map(attrs), do: Mapping.build(%__MODULE__{}, attrs)
+
   @spec validate_string(field :: atom(), value :: value()) :: validation()
   defp validate_string(_field, value) when is_binary(value), do: {:ok, value}
-  defp validate_string(:name_space, nil), do: {:ok, nil}
+  defp validate_string(:namespace, nil), do: {:ok, nil}
   defp validate_string(field, _value), do: {:error, [{field, :invalid}]}
 end

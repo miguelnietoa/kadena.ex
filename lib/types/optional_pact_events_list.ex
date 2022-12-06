@@ -16,5 +16,12 @@ defmodule Kadena.Types.OptionalPactEventsList do
   def new(pact_events \\ nil)
   def new(nil), do: %__MODULE__{}
   def new(%PactEventsList{} = pact_events), do: %__MODULE__{pact_events: pact_events}
+
+  def new(pact_events) when is_list(pact_events) do
+    pact_events
+    |> PactEventsList.new()
+    |> new()
+  end
+
   def new(_pact_events), do: {:error, [pact_events: :invalid]}
 end

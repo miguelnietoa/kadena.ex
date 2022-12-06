@@ -19,33 +19,17 @@ defmodule Kadena.Chainweb.Types.PollResponse do
   defstruct [:key, :response]
 
   @impl true
-  def new(args) do
-    key = Keyword.get(args, :key)
-    response = Keyword.get(args, :response)
+  def new(attrs) do
+    %CommandResult{req_key: key} =
+      response =
+      attrs
+      |> Map.values()
+      |> List.first()
+      |> CommandResult.new()
 
-    with {:ok, key} <- validate_key(key),
-         {:ok, response} <- validate_response(response) do
-      %__MODULE__{key: key, response: response}
-    end
+    %__MODULE__{
+      key: key,
+      response: response
+    }
   end
-
-  @spec validate_key(key :: str()) :: validation()
-  defp validate_key(key) do
-    case Base64Url.new(key) do
-      %Base64Url{} = key -> {:ok, key}
-      {:error, _reason} -> {:error, [key: :invalid]}
-    end
-  end
-
-  @spec validate_response(response :: response()) :: validation()
-  defp validate_response(%CommandResult{} = response), do: {:ok, response}
-
-  defp validate_response(response) when is_list(response) do
-    case CommandResult.new(response) do
-      %CommandResult{} = response -> {:ok, response}
-      {:error, reason} -> {:error, [response: :invalid] ++ reason}
-    end
-  end
-
-  defp validate_response(_response), do: {:error, [response: :invalid]}
 end

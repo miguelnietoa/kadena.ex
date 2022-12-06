@@ -4,6 +4,7 @@ defmodule Kadena.Types.PactEvent do
   """
 
   alias Kadena.Types.{PactEventModule, PactValuesList}
+  alias Kadena.Chainweb.Mapping
 
   @behaviour Kadena.Types.Spec
 
@@ -26,8 +27,13 @@ defmodule Kadena.Types.PactEvent do
 
   defstruct [:name, :module, :params, :module_hash]
 
+  @mapping [
+    module: {:struct, PactEventModule},
+    params: {:struct, PactValuesList}
+  ]
+
   @impl true
-  def new(args) do
+  def new(args) when is_list(args) do
     name = Keyword.get(args, :name)
     pact_event_module = Keyword.get(args, :module)
     params = Keyword.get(args, :params)
@@ -39,6 +45,12 @@ defmodule Kadena.Types.PactEvent do
          {:ok, module_hash} <- validate_string(:module_hash, module_hash) do
       %__MODULE__{name: name, module: pact_event_module, params: params, module_hash: module_hash}
     end
+  end
+
+  def new(attrs) when is_map(attrs) do
+    %__MODULE__{}
+    |> Mapping.build(attrs)
+    |> Mapping.parse(@mapping)
   end
 
   @spec validate_string(field :: atom(), value :: str()) :: validation()

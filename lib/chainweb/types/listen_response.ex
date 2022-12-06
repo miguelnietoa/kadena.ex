@@ -41,13 +41,11 @@ defmodule Kadena.Chainweb.Types.ListenResponse do
   defstruct [:req_key, :tx_id, :result, :gas, :logs, :continuation, :meta_data, :events]
 
   @impl true
-  def new(args) when is_list(args) do
-    args
+  def new(attrs) do
+    attrs
     |> CommandResult.new()
     |> build_listen_response()
   end
-
-  def new(_args), do: {:error, [listen_response: :not_a_list]}
 
   @spec build_listen_response(command_result :: command_result()) :: validation()
   defp build_listen_response(%CommandResult{} = command_result) do

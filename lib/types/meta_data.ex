@@ -4,6 +4,7 @@ defmodule Kadena.Types.MetaData do
   """
 
   alias Kadena.Types.ChainID
+  alias Kadena.Chainweb.Mapping
 
   @behaviour Kadena.Types.Spec
 
@@ -27,6 +28,8 @@ defmodule Kadena.Types.MetaData do
         }
 
   defstruct [:creation_time, :ttl, :gas_limit, :gas_price, :sender, :chain_id]
+
+  @mapping [chain_id: {:struct, ChainID}]
 
   @impl true
   def new(args) when is_list(args) do
@@ -54,7 +57,11 @@ defmodule Kadena.Types.MetaData do
     end
   end
 
-  def new(_args), do: {:error, [args: :not_a_list]}
+  def new(attrs) when is_map(attrs) do
+    %__MODULE__{}
+    |> Mapping.build(attrs)
+    |> Mapping.parse(@mapping)
+  end
 
   @spec validate_creation_time(creation_time :: creation_time()) :: validation()
   defp validate_creation_time(creation_time) when is_number(creation_time),

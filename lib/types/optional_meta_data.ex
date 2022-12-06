@@ -3,6 +3,7 @@ defmodule Kadena.Types.OptionalMetaData do
   `OptionalMetaData` struct definition.
   """
   alias Kadena.Types.MetaData
+  alias Kadena.Chainweb.Mapping
 
   @behaviour Kadena.Types.Spec
 
@@ -16,5 +17,12 @@ defmodule Kadena.Types.OptionalMetaData do
   def new(meta_data \\ nil)
   def new(nil), do: %__MODULE__{}
   def new(%MetaData{} = meta_data), do: %__MODULE__{meta_data: meta_data}
+
+  def new(attrs) when is_map(attrs) do
+    attrs
+    |> MetaData.new()
+    |> new()
+  end
+
   def new(_meta_data), do: {:error, [meta_data: :invalid]}
 end

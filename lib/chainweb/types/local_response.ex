@@ -24,7 +24,6 @@ defmodule Kadena.Chainweb.Types.LocalResponse do
   @type meta_data :: ChainwebResponseMetaData.t() | nil
   @type events :: OptionalPactEventsList.t()
   @type command_result :: CommandResult.t()
-  @type errors :: {:error, Keyword.t()}
 
   @type t :: %__MODULE__{
           req_key: req_key(),
@@ -40,17 +39,15 @@ defmodule Kadena.Chainweb.Types.LocalResponse do
   defstruct [:req_key, :tx_id, :result, :gas, :logs, :continuation, :meta_data, :events]
 
   @impl true
-  def new(args) do
-    args
+  def new(attrs) do
+    attrs
     |> CommandResult.new()
     |> build_local_request_body()
   end
 
-  @spec build_local_request_body(command_result :: command_result() | errors()) :: t() | errors()
+  @spec build_local_request_body(command_result :: command_result()) :: t()
   defp build_local_request_body(%CommandResult{} = command_result) do
     attrs = Map.from_struct(command_result)
     struct(%__MODULE__{}, attrs)
   end
-
-  defp build_local_request_body({:error, reason}), do: {:error, reason}
 end
