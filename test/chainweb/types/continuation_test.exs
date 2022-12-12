@@ -31,11 +31,20 @@ defmodule Kadena.Chainweb.Resources.ContinuationTest do
   end
 
   test "new/1 with args as integer", %{attrs: attrs} do
+    attrs = Map.put(attrs, "args", 1)
+
+    %Continuation{
+      args: %PactValue{literal: 1},
+      def: "coin"
+    } = Continuation.new(attrs)
+  end
+
+  test "new/1 with args as integer not in range", %{attrs: attrs} do
     attrs = Map.put(attrs, "args", 9_007_199_254_740_992)
 
     %Continuation{
       args: %PactValue{
-        literal: %Kadena.Types.PactInt{
+        literal: %PactInt{
           raw_value: 9_007_199_254_740_992,
           value: "9007199254740992"
         }
