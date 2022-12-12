@@ -13,13 +13,13 @@ defmodule Kadena.Chainweb.Mapping do
 
   @spec build(module :: struct(), attrs :: map()) :: struct()
   def build(module, attrs) do
-    attrs = map_to_keyword_list(attrs)
-
     module_attrs =
       module
       |> Map.from_struct()
       |> Map.keys()
-      |> (&Keyword.take(attrs, &1)).()
+      |> Enum.map(&Atom.to_string/1)
+      |> (&Map.take(attrs, &1)).()
+      |> map_to_keyword_list()
 
     struct!(module, module_attrs)
   end

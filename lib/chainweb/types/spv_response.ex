@@ -1,11 +1,11 @@
-defmodule Kadena.Chainweb.Types.SPVResponse do
+defmodule Kadena.Chainweb.Resources.SPVResponse do
   @moduledoc """
   `SPVResponse` struct definition.
   """
 
   alias Kadena.Types.SPVProof
 
-  @behaviour Kadena.Types.Spec
+  @behaviour Kadena.Chainweb.Resource
 
   @type str :: String.t()
   @type spv_proof :: SPVProof.t()

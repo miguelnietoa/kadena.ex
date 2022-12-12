@@ -163,12 +163,12 @@ defmodule Kadena.MixProject do
         Kadena.Types.Yield
       ],
       "Chainweb Types": [
-        Kadena.Chainweb.Types.CommandResult,
-        Kadena.Chainweb.Types.ListenResponse,
-        Kadena.Chainweb.Types.LocalResponse,
-        Kadena.Chainweb.Types.PollResponse,
-        Kadena.Chainweb.Types.SendResponse,
-        Kadena.Chainweb.Types.SPVResponse
+        Kadena.Chainweb.Resources.CommandResult,
+        Kadena.Chainweb.Resources.ListenResponse,
+        Kadena.Chainweb.Resources.LocalResponse,
+        Kadena.Chainweb.Resources.PollResponse,
+        Kadena.Chainweb.Resources.SendResponse,
+        Kadena.Chainweb.Resources.SPVResponse
       ],
       Utils: Kadena.Utils.MapCase
     ]

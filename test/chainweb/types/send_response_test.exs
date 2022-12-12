@@ -1,48 +1,45 @@
-defmodule Kadena.Chainweb.Types.SendResponseTest do
+defmodule Kadena.Chainweb.Resources.SendResponseTest do
   @moduledoc """
   `SendResponse` struct definition tests.
   """
 
   use ExUnit.Case
 
-  alias Kadena.Chainweb.Types.SendResponse
+  alias Kadena.Chainweb.Resources.SendResponse
   alias Kadena.Types.{Base64Url, Base64UrlsList}
 
-  describe "new/1" do
-    test "with a valid list" do
-      %SendResponse{
-        request_keys: %Base64UrlsList{
-          urls: [
-            %Base64Url{url: "ATGCYPMNzdGcFh9Iik73KfMkgURIxaF91Ze4sHFsH8Q"},
-            %Base64Url{url: "JHgnKe5Wd4hNIb7a6bIhm4ifxsYFzVGtAMyi_TEO-oM"}
-          ]
-        }
-      } =
-        SendResponse.new([
+  setup do
+    %{
+      attrs: %{
+        "request_keys" => [
           "ATGCYPMNzdGcFh9Iik73KfMkgURIxaF91Ze4sHFsH8Q",
           "JHgnKe5Wd4hNIb7a6bIhm4ifxsYFzVGtAMyi_TEO-oM"
-        ])
-    end
+        ]
+      }
+    }
+  end
 
-    test "with a valid Base64UrlsList struct" do
-      list =
-        Base64UrlsList.new([
-          "ATGCYPMNzdGcFh9Iik73KfMkgURIxaF91Ze4sHFsH8Q",
-          "JHgnKe5Wd4hNIb7a6bIhm4ifxsYFzVGtAMyi_TEO-oM"
-        ])
+  test "new/1", %{attrs: attrs} do
+    %SendResponse{
+      request_keys: %Base64UrlsList{
+        urls: [
+          %Base64Url{
+            url: "ATGCYPMNzdGcFh9Iik73KfMkgURIxaF91Ze4sHFsH8Q"
+          },
+          %Base64Url{
+            url: "JHgnKe5Wd4hNIb7a6bIhm4ifxsYFzVGtAMyi_TEO-oM"
+          }
+        ]
+      }
+    } = SendResponse.new(attrs)
+  end
 
-      %SendResponse{
-        request_keys: ^list
-      } = SendResponse.new(list)
-    end
+  test "new/1 invalid_request_keys", %{attrs: attrs} do
+    attrs = Map.put(attrs, "request_keys", "invalid_request_keys")
+    %SendResponse{request_keys: {:error, [urls: :not_a_list]}} = SendResponse.new(attrs)
+  end
 
-    test "with an invalid param" do
-      {:error, [request_keys: :not_a_list]} = SendResponse.new("invalid_param")
-    end
-
-    test "with an invalid list" do
-      {:error, [request_keys: :invalid]} =
-        SendResponse.new(["ATGCYPMNzdGcFh9Iik73KfMkgURIxaF91Ze4sHFsH8Q", 123])
-    end
+  test "new/1 empty_attrs" do
+    %SendResponse{request_keys: %Base64UrlsList{urls: []}} = SendResponse.new(%{})
   end
 end

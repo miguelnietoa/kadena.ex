@@ -1,0 +1,29 @@
+defmodule Kadena.Chainweb.Resources.Yield do
+  @moduledoc """
+  `Yield` struct definition.
+  """
+
+  alias Kadena.Chainweb.Resources.Provenance
+  alias Kadena.Chainweb.Mapping
+
+  @behaviour Kadena.Chainweb.Resource
+
+  @type data :: map()
+  @type provenance :: Provenance.t() | nil
+
+  @type t :: %__MODULE__{
+          data: data(),
+          provenance: provenance()
+        }
+
+  defstruct [:data, :provenance]
+
+  @mapping [provenance: {:struct, Provenance}]
+
+  @impl true
+  def new(attrs) do
+    %__MODULE__{}
+    |> Mapping.build(attrs)
+    |> Mapping.parse(@mapping)
+  end
+end
