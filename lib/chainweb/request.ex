@@ -122,12 +122,8 @@ defmodule Kadena.Chainweb.Request do
   end
 
   @spec results(response :: response(), opts :: opts()) :: parsed_response()
-  def results({:ok, results}, opts) do
-    resource = Keyword.get(opts, :as)
-    to_snake = Keyword.get(opts, :to_snake, true)
-
-    results = if(to_snake, do: MapCase.to_snake!(results), else: results)
-    {:ok, resource.new(results)}
+  def results({:ok, results}, as: resource) do
+    {:ok, results |> MapCase.to_snake!() |> resource.new()}
   end
 
   def results({:error, error}, _resource), do: {:error, error}

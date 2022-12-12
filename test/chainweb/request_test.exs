@@ -88,6 +88,35 @@ defmodule Kadena.Chainweb.RequestTest do
       |> Request.add_query(query, params)
   end
 
+  test "add_query/3 no_allowed_params", %{endpoint: endpoint, query: query} do
+    %Request{
+      method: :post,
+      endpoint: ^endpoint,
+      query: ^query,
+      encoded_query: nil
+    } =
+      :post
+      |> Request.new(pact: [endpoint: endpoint])
+      |> Request.add_query(query)
+  end
+
+  test "add_query/3 with_nil_params", %{endpoint: endpoint, query: query, params: params} do
+    query =
+      query
+      |> Keyword.put(:query_param1, nil)
+      |> Keyword.put(:query_param2, nil)
+
+    %Request{
+      method: :post,
+      endpoint: ^endpoint,
+      query: ^query,
+      encoded_query: nil
+    } =
+      :post
+      |> Request.new(pact: [endpoint: endpoint])
+      |> Request.add_query(query, params)
+  end
+
   test "add_query/3 invalid_params", %{endpoint: endpoint, query: query} do
     %Request{
       method: :post,
@@ -118,10 +147,7 @@ defmodule Kadena.Chainweb.RequestTest do
   end
 
   test "results/2 success" do
-    local_response =
-      "local"
-      |> Chainweb.fixture()
-      |> Jason.decode!()
+    local_response = Chainweb.fixture("local", to_snake: true)
 
     {:ok, %LocalResponse{}} =
       Request.results({:ok, local_response}, as: LocalResponse)

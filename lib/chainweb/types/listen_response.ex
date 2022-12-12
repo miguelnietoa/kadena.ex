@@ -54,6 +54,4 @@ defmodule Kadena.Chainweb.Resources.ListenResponse do
     attrs = Map.from_struct(command_result)
     struct(%__MODULE__{}, attrs)
   end
-
-  defp build_listen_response(error), do: error
 end
