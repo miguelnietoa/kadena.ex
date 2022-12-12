@@ -1,51 +1,28 @@
-defmodule Kadena.Chainweb.Types.PollResponse do
+defmodule Kadena.Chainweb.Resources.PollResponse do
   @moduledoc """
   `PollResponse` struct definition.
   """
 
-  alias Kadena.Chainweb.Types.CommandResult
-  alias Kadena.Types.Base64Url
+  alias Kadena.Chainweb.Mapping
+  alias Kadena.Chainweb.Resources.CommandResult
 
-  @behaviour Kadena.Types.Spec
+  @behaviour Kadena.Chainweb.Resource
 
-  @type str :: String.t()
-  @type key :: Base64Url.t()
-  @type response :: CommandResult.t()
-  @type value :: key() | response()
-  @type validation :: {:ok, value()} | {:error, Keyword.t()}
+  @type results :: list(CommandResult.t())
 
-  @type t :: %__MODULE__{key: key(), response: response()}
+  @type t :: %__MODULE__{results: results()}
 
-  defstruct [:key, :response]
+  defstruct [:results]
+
+  @mapping [results: {:list, :struct, CommandResult}]
 
   @impl true
-  def new(args) do
-    key = Keyword.get(args, :key)
-    response = Keyword.get(args, :response)
+  def new(attrs) do
+    values = Map.values(attrs)
+    attrs = %{"results" => values}
 
-    with {:ok, key} <- validate_key(key),
-         {:ok, response} <- validate_response(response) do
-      %__MODULE__{key: key, response: response}
-    end
+    %__MODULE__{}
+    |> Mapping.build(attrs)
+    |> Mapping.parse(@mapping)
   end
-
-  @spec validate_key(key :: str()) :: validation()
-  defp validate_key(key) do
-    case Base64Url.new(key) do
-      %Base64Url{} = key -> {:ok, key}
-      {:error, _reason} -> {:error, [key: :invalid]}
-    end
-  end
-
-  @spec validate_response(response :: response()) :: validation()
-  defp validate_response(%CommandResult{} = response), do: {:ok, response}
-
-  defp validate_response(response) when is_list(response) do
-    case CommandResult.new(response) do
-      %CommandResult{} = response -> {:ok, response}
-      {:error, reason} -> {:error, [response: :invalid] ++ reason}
-    end
-  end
-
-  defp validate_response(_response), do: {:error, [response: :invalid]}
 end

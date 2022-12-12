@@ -1,19 +1,19 @@
-defmodule Kadena.Chainweb.Types.LocalResponse do
+defmodule Kadena.Chainweb.Resources.LocalResponse do
   @moduledoc """
   `LocalResponse` struct definition.
   """
 
-  alias Kadena.Types.{
-    Base64Url,
-    ChainwebResponseMetaData,
-    OptionalPactEventsList,
+  alias Kadena.Types.Base64Url
+
+  alias Kadena.Chainweb.Resources.{
+    PactResult,
     PactExec,
-    PactResult
+    PactEventsList,
+    CommandResult,
+    ResponseMetaData
   }
 
-  alias Kadena.Chainweb.Types.CommandResult
-
-  @behaviour Kadena.Types.Spec
+  @behaviour Kadena.Chainweb.Resource
 
   @type req_key :: Base64Url.t()
   @type tx_id :: number() | nil
@@ -21,10 +21,9 @@ defmodule Kadena.Chainweb.Types.LocalResponse do
   @type gas :: number()
   @type logs :: String.t() | nil
   @type continuation :: PactExec.t()
-  @type meta_data :: ChainwebResponseMetaData.t() | nil
-  @type events :: OptionalPactEventsList.t()
+  @type meta_data :: ResponseMetaData.t() | nil
+  @type events :: PactEventsList.t() | nil
   @type command_result :: CommandResult.t()
-  @type errors :: {:error, Keyword.t()}
 
   @type t :: %__MODULE__{
           req_key: req_key(),
@@ -40,17 +39,15 @@ defmodule Kadena.Chainweb.Types.LocalResponse do
   defstruct [:req_key, :tx_id, :result, :gas, :logs, :continuation, :meta_data, :events]
 
   @impl true
-  def new(args) do
-    args
+  def new(attrs) do
+    attrs
     |> CommandResult.new()
     |> build_local_request_body()
   end
 
-  @spec build_local_request_body(command_result :: command_result() | errors()) :: t() | errors()
+  @spec build_local_request_body(command_result :: command_result()) :: t()
   defp build_local_request_body(%CommandResult{} = command_result) do
     attrs = Map.from_struct(command_result)
     struct(%__MODULE__{}, attrs)
   end
-
-  defp build_local_request_body({:error, reason}), do: {:error, reason}
 end

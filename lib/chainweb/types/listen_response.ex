@@ -1,19 +1,21 @@
-defmodule Kadena.Chainweb.Types.ListenResponse do
+defmodule Kadena.Chainweb.Resources.ListenResponse do
   @moduledoc """
   `ListenResponse` struct definition.
   """
 
   alias Kadena.Types.{
     Base64Url,
-    ChainwebResponseMetaData,
-    OptionalPactEventsList,
-    PactExec,
-    PactResult
+    PactExec
   }
 
-  alias Kadena.Chainweb.Types.CommandResult
+  alias Kadena.Chainweb.Resources.{
+    CommandResult,
+    PactEventsList,
+    PactResult,
+    ResponseMetaData
+  }
 
-  @behaviour Kadena.Types.Spec
+  @behaviour Kadena.Chainweb.Resource
 
   @type req_key :: Base64Url.t()
   @type tx_id :: number() | nil
@@ -21,8 +23,8 @@ defmodule Kadena.Chainweb.Types.ListenResponse do
   @type gas :: number()
   @type logs :: String.t() | nil
   @type continuation :: PactExec.t()
-  @type meta_data :: ChainwebResponseMetaData.t() | nil
-  @type events :: OptionalPactEventsList.t()
+  @type meta_data :: ResponseMetaData.t() | nil
+  @type events :: PactEventsList.t() | nil
 
   @type command_result :: CommandResult.t()
   @type validation :: t() | {:error, Keyword.t()}
@@ -41,13 +43,11 @@ defmodule Kadena.Chainweb.Types.ListenResponse do
   defstruct [:req_key, :tx_id, :result, :gas, :logs, :continuation, :meta_data, :events]
 
   @impl true
-  def new(args) when is_list(args) do
-    args
+  def new(attrs) do
+    attrs
     |> CommandResult.new()
     |> build_listen_response()
   end
-
-  def new(_args), do: {:error, [listen_response: :not_a_list]}
 
   @spec build_listen_response(command_result :: command_result()) :: validation()
   defp build_listen_response(%CommandResult{} = command_result) do

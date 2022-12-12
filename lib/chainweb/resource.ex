@@ -3,7 +3,7 @@ defmodule Kadena.Chainweb.Resource do
   Specifies contracts to build Chainweb resources.
   """
 
-  @type attrs :: map()
+  @type attrs :: map() | list()
   @type resource :: struct()
 
   @callback new(attrs()) :: resource()
