@@ -22,7 +22,7 @@ defmodule Kadena.Chainweb.Resources.SPVResponse do
     |> build_spv_response()
   end
 
-  @spec build_spv_response(spv_proof :: spv_proof()) :: validation()
+  @spec build_spv_response(spv_proof :: spv_proof()) :: t()
   def build_spv_response(%SPVProof{value: response}), do: %__MODULE__{response: response}
-  def build_spv_response(_error), do: {:error, [response: :invalid]}
+  def build_spv_response(_error), do: %__MODULE__{}
 end
