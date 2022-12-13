@@ -1,4 +1,4 @@
-defmodule PollResponseTest do
+defmodule Kadena.Chainweb.Resources.PollResponseTest do
   @moduledoc """
   `PollResponse` struct definition tests.
   """
