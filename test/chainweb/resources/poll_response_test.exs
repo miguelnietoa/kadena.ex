@@ -5,17 +5,17 @@ defmodule Kadena.Chainweb.Resources.PollResponseTest do
 
   use ExUnit.Case
 
-  alias Kadena.Test.Fixtures.Chainweb
-
   alias Kadena.Chainweb.Resources.{
-    PollResponse,
     CommandResult,
-    PactEventsList,
     PactEvent,
     PactEventModule,
-    ResponseMetaData,
-    PactResult
+    PactEventsList,
+    PactResult,
+    PollResponse,
+    ResponseMetaData
   }
+
+  alias Kadena.Test.Fixtures.Chainweb
 
   alias Kadena.Types.{
     Base64Url,

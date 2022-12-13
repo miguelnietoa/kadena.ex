@@ -3,18 +3,16 @@ defmodule Kadena.Chainweb.Resources.CommandResult do
   `CommandResult` struct definition.
   """
 
-  alias Kadena.Types.{
-    Base64Url
-  }
+  alias Kadena.Chainweb.Mapping
 
   alias Kadena.Chainweb.Resources.{
-    PactResult,
     PactEventsList,
-    ResponseMetaData,
-    PactExec
+    PactExec,
+    PactResult,
+    ResponseMetaData
   }
 
-  alias Kadena.Chainweb.Mapping
+  alias Kadena.Types.Base64Url
 
   @behaviour Kadena.Chainweb.Resource
 

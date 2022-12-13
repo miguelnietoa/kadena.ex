@@ -8,26 +8,26 @@ defmodule Kadena.Chainweb.Resources.ListenResponseTest do
   alias Kadena.Test.Fixtures.Chainweb
 
   alias Kadena.Types.{
+    Base64Url,
     ChainID,
+    PactTransactionHash,
     PactValue,
     PactValuesList,
-    PactTransactionHash,
-    Step,
-    Base64Url
+    Step
   }
 
   alias Kadena.Chainweb.Resources.{
-    ListenResponse,
     Continuation,
-    Yield,
+    ListenResponse,
+    MetaDataResult,
     PactEvent,
     PactEventModule,
-    PactResult,
     PactEventsList,
-    ResponseMetaData,
     PactExec,
-    MetaDataResult,
-    Provenance
+    PactResult,
+    Provenance,
+    ResponseMetaData,
+    Yield
   }
 
   setup do
@@ -123,7 +123,6 @@ defmodule Kadena.Chainweb.Resources.ListenResponseTest do
     result: result,
     tx_id: tx_id
   } do
-    IO.inspect(attrs)
     %ListenResponse{
       continuation: ^continuation,
       events: ^events,

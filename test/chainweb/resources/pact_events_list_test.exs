@@ -5,7 +5,7 @@ defmodule Kadena.Chainweb.Resources.PactEventsListTest do
 
   use ExUnit.Case
 
-  alias Kadena.Chainweb.Resources.{PactEventsList, PactEvent}
+  alias Kadena.Chainweb.Resources.{PactEvent, PactEventsList}
 
   setup do
     pact_event_1_attrs = %{

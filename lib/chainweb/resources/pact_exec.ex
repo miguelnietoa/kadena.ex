@@ -3,12 +3,14 @@ defmodule Kadena.Chainweb.Resources.PactExec do
   `PactExec` struct definition.
   """
 
-  alias Kadena.Types.{PactTransactionHash, Step}
   alias Kadena.Chainweb.Mapping
+
   alias Kadena.Chainweb.Resources.{
     Continuation,
     Yield
   }
+
+  alias Kadena.Types.{PactTransactionHash, Step}
 
   @behaviour Kadena.Chainweb.Resource
 

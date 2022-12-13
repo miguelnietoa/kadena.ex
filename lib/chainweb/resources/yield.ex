@@ -3,8 +3,8 @@ defmodule Kadena.Chainweb.Resources.Yield do
   `Yield` struct definition.
   """
 
-  alias Kadena.Chainweb.Resources.Provenance
   alias Kadena.Chainweb.Mapping
+  alias Kadena.Chainweb.Resources.Provenance
 
   @behaviour Kadena.Chainweb.Resource
 

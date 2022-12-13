@@ -4,8 +4,8 @@ defmodule Kadena.Chainweb.Resources.PactExecTest do
   """
   use ExUnit.Case
 
-  alias Kadena.Types.{PactValue, PactTransactionHash, Step, ChainID}
-  alias Kadena.Chainweb.Resources.{Continuation, PactExec, Yield, Provenance}
+  alias Kadena.Types.{ChainID, PactTransactionHash, PactValue, Step}
+  alias Kadena.Chainweb.Resources.{Continuation, PactExec, Provenance, Yield}
 
   setup do
     attrs = %{

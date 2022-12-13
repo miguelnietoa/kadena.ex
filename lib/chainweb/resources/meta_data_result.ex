@@ -3,8 +3,8 @@ defmodule Kadena.Chainweb.Resources.MetaDataResult do
   `MetaDataResult` struct definition.
   """
 
-  alias Kadena.Types.ChainID
   alias Kadena.Chainweb.Mapping
+  alias Kadena.Types.ChainID
 
   @behaviour Kadena.Chainweb.Resource
 

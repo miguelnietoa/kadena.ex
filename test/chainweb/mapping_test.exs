@@ -7,9 +7,9 @@ end
 defmodule Kadena.Chainweb.MappingTest do
   use ExUnit.Case
 
+  alias Kadena.Chainweb.Mapping
   alias Kadena.Chainweb.Resources.FakeResource
   alias Kadena.Types.PactValue
-  alias Kadena.Chainweb.Mapping
 
   setup do
     %{
