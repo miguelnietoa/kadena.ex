@@ -11,7 +11,7 @@ defmodule Kadena.Chainweb.Pact.Request do
     SPVRequestBody
   }
 
-  alias Kadena.Chainweb.Resources.{
+  alias Kadena.Chainweb.Pact.Resources.{
     ListenResponse,
     LocalResponse,
     PollResponse,

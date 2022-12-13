@@ -24,7 +24,7 @@ defmodule Kadena.Chainweb.RequestTest do
   alias Kadena.Chainweb.Client.CannedRequestImpl
   alias Kadena.Chainweb.Error
   alias Kadena.Chainweb.Request
-  alias Kadena.Chainweb.Resources.LocalResponse
+  alias Kadena.Chainweb.Pact.Resources.LocalResponse
 
   alias Kadena.Test.Fixtures.Chainweb
 

@@ -1,4 +1,4 @@
-defmodule Kadena.Chainweb.Resources.FakeResource do
+defmodule Kadena.Chainweb.Pact.Resources.FakeResource do
   @moduledoc false
 
   defstruct [:id, :status, :value, :extra_values]
@@ -8,7 +8,7 @@ defmodule Kadena.Chainweb.MappingTest do
   use ExUnit.Case
 
   alias Kadena.Chainweb.Mapping
-  alias Kadena.Chainweb.Resources.FakeResource
+  alias Kadena.Chainweb.Pact.Resources.FakeResource
   alias Kadena.Types.PactValue
 
   setup do

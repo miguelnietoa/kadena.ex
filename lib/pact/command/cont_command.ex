@@ -202,7 +202,6 @@ defmodule Kadena.Pact.ContCommand do
   def set_proof({:error, reason}, _proof), do: {:error, reason}
 
   @impl true
-
   def set_rollback(%__MODULE__{} = cmd_request, rollback) when is_boolean(rollback),
     do: %{cmd_request | rollback: rollback}
 
