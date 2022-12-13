@@ -21,10 +21,10 @@ end
 defmodule Kadena.Chainweb.RequestTest do
   use ExUnit.Case
 
-  alias Kadena.Chainweb.Error
-  alias Kadena.Chainweb.Resources.LocalResponse
   alias Kadena.Chainweb.Client.CannedRequestImpl
+  alias Kadena.Chainweb.Error
   alias Kadena.Chainweb.Request
+  alias Kadena.Chainweb.Resources.LocalResponse
 
   alias Kadena.Test.Fixtures.Chainweb
 

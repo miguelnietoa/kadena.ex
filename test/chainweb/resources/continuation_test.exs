@@ -5,14 +5,14 @@ defmodule Kadena.Chainweb.Resources.ContinuationTest do
 
   use ExUnit.Case
 
-  alias Kadena.Types.{
-    PactValuesList,
-    PactValue,
-    PactInt,
-    PactDecimal
-  }
-
   alias Kadena.Chainweb.Resources.Continuation
+
+  alias Kadena.Types.{
+    PactDecimal,
+    PactInt,
+    PactValue,
+    PactValuesList
+  }
 
   setup do
     %{

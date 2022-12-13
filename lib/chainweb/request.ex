@@ -5,8 +5,8 @@ defmodule Kadena.Chainweb.Request do
   The request does not happen until it is configured and passed to `perform/1`.
   """
 
+  alias Kadena.Chainweb.{Client, Error, Network}
   alias Kadena.Utils.MapCase
-  alias Kadena.Chainweb.{Network, Client, Error}
 
   @type api_type :: :pact | :p2p
   @type network_id :: :testnet04 | :mainnet01

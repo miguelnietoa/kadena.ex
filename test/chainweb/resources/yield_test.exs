@@ -3,7 +3,7 @@ defmodule Kadena.Chainweb.Resources.YieldTest do
   `Yield` struct definition tests.
   """
 
-  alias Kadena.Chainweb.Resources.{Yield, Provenance}
+  alias Kadena.Chainweb.Resources.{Provenance, Yield}
   alias Kadena.Types.ChainID
 
   use ExUnit.Case

@@ -3,8 +3,8 @@ defmodule Kadena.Chainweb.Resources.ProvenanceTest do
   `Provenance` struct definition tests.
   """
 
-  alias Kadena.Types.ChainID
   alias Kadena.Chainweb.Resources.Provenance
+  alias Kadena.Types.ChainID
 
   use ExUnit.Case
 

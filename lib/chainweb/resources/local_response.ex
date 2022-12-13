@@ -6,10 +6,10 @@ defmodule Kadena.Chainweb.Resources.LocalResponse do
   alias Kadena.Types.Base64Url
 
   alias Kadena.Chainweb.Resources.{
-    PactResult,
-    PactExec,
-    PactEventsList,
     CommandResult,
+    PactEventsList,
+    PactExec,
+    PactResult,
     ResponseMetaData
   }
 

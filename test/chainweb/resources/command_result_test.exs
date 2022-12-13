@@ -7,20 +7,20 @@ defmodule Kadena.Chainweb.Resources.CommandResultTest do
 
   alias Kadena.Test.Fixtures.Chainweb
 
-  alias Kadena.Types.{ChainID, Base64Url, PactValue, PactValuesList}
+  alias Kadena.Types.{Base64Url, ChainID, PactValue, PactValuesList}
 
   alias Kadena.Chainweb.Resources.{
     CommandResult,
     Continuation,
-    Yield,
+    MetaDataResult,
     PactEvent,
     PactEventModule,
-    PactResult,
     PactEventsList,
-    ResponseMetaData,
     PactExec,
-    MetaDataResult,
-    Provenance
+    PactResult,
+    Provenance,
+    ResponseMetaData,
+    Yield
   }
 
   setup do

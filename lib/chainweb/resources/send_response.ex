@@ -3,8 +3,8 @@ defmodule Kadena.Chainweb.Resources.SendResponse do
   `SendResponse` struct definition.
   """
 
-  alias Kadena.Types.Base64UrlsList
   alias Kadena.Chainweb.Mapping
+  alias Kadena.Types.Base64UrlsList
 
   @behaviour Kadena.Chainweb.Resource
 

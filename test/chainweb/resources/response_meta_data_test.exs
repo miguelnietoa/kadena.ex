@@ -5,8 +5,8 @@ defmodule Kadena.Chainweb.Resources.ResponseMetaDataTest do
 
   use ExUnit.Case
 
+  alias Kadena.Chainweb.Resources.{MetaDataResult, ResponseMetaData}
   alias Kadena.Types.ChainID
-  alias Kadena.Chainweb.Resources.{ResponseMetaData, MetaDataResult}
 
   setup do
     %{
@@ -46,6 +46,7 @@ defmodule Kadena.Chainweb.Resources.ResponseMetaDataTest do
 
   test "new/1 with nil public_meta", %{attrs: attrs} do
     attrs = Map.put(attrs, "public_meta", nil)
+
     %ResponseMetaData{
       block_hash: "kZCKTbL3ubONngiGQsJh4fGtP1xrhAoUvcTsqi3uCGg",
       block_height: 2708,

@@ -3,8 +3,8 @@ defmodule Kadena.Chainweb.Resources.Continuation do
   `Continuation` struct definition.
   """
 
-  alias Kadena.Types.PactValue
   alias Kadena.Chainweb.Mapping
+  alias Kadena.Types.PactValue
 
   @behaviour Kadena.Chainweb.Resource
 

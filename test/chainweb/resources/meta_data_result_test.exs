@@ -5,8 +5,8 @@ defmodule Kadena.Chainweb.Resources.MetaDataResultTest do
 
   use ExUnit.Case
 
-  alias Kadena.Types.ChainID
   alias Kadena.Chainweb.Resources.MetaDataResult
+  alias Kadena.Types.ChainID
 
   setup do
     %{

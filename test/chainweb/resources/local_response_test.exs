@@ -5,29 +5,29 @@ defmodule Kadena.Chainweb.Resources.LocalResponseTest do
 
   use ExUnit.Case
 
+  alias Kadena.Chainweb.Resources.{
+    Continuation,
+    LocalResponse,
+    MetaDataResult,
+    PactEvent,
+    PactEventModule,
+    PactEventsList,
+    PactExec,
+    PactResult,
+    Provenance,
+    ResponseMetaData,
+    Yield
+  }
+
   alias Kadena.Test.Fixtures.Chainweb
 
   alias Kadena.Types.{
+    Base64Url,
     ChainID,
+    PactTransactionHash,
     PactValue,
     PactValuesList,
-    PactTransactionHash,
-    Step,
-    Base64Url
-  }
-
-  alias Kadena.Chainweb.Resources.{
-    LocalResponse,
-    Continuation,
-    Yield,
-    PactEvent,
-    PactEventModule,
-    PactResult,
-    PactEventsList,
-    ResponseMetaData,
-    PactExec,
-    MetaDataResult,
-    Provenance
+    Step
   }
 
   setup do

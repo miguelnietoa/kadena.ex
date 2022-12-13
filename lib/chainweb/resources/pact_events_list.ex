@@ -2,8 +2,8 @@ defmodule Kadena.Chainweb.Resources.PactEventsList do
   @moduledoc """
   `PactEventsList` struct definition.
   """
-  alias Kadena.Chainweb.Resources.PactEvent
   alias Kadena.Chainweb.Mapping
+  alias Kadena.Chainweb.Resources.PactEvent
 
   @behaviour Kadena.Chainweb.Resource
 
